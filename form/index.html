@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login PT. SELOG</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login Karyawan</h2>
+      <form name="#" id="loginForm">
+        <div class="form-group">
+          <label for="nama">Nama</label>
+          <input type="text" id="nama" name="nama" required />
+        </div>
+        <div class="form-group">
+          <label for="nrp">NRP</label>
+          <input type="number" id="nrp" name="nrp" required />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+    <script>
+      // Data aktivitas berdasarkan NRP
+      const dataAktivitas = {
+        5467: "Shipping Monitoring",
+        5468: "Shipping Monitoring, Print Picking Slip",
+        5470: "Packing",
+        5481: "Checking Issuing",
+        5482: "HSE, GA",
+        5483: "Inventory",
+        5485: "Billing",
+        5511: "Administrasi, HR",
+        5542: "Quality",
+        5550: "Maintain Location",
+        6034: "Relocation, Maintain Location, Repacking Part, Timelock",
+        6091: "Picking Issuing",
+        6092: "Checking Receiving",
+        6095: "Checking Issuing",
+        6097: "Picking - Checking - Packing (PCP)",
+        6109: "Reserve, Replenishment, Maintain F, Maintain Location",
+        6169: "Inventory, Procurement",
+        6170: "Inventory, Supply Operation",
+        6189: "Checking Receiving",
+        6217: "Loading",
+        6615: "Binning",
+        7253: "Checking Issuing",
+        7319: "Picking Issuing",
+        7321: "Reserve, Replenishment",
+        7509: "Inventory, BO Monitoring",
+      };
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Mencegah pengiriman form
+
+          var nama = document.getElementById("nama").value;
+          var nrp = document.getElementById("nrp").value;
+
+          // Simpan nama dan nrp ke localStorage
+          localStorage.setItem("namaPekerja", nama);
+          localStorage.setItem("nrpPekerja", nrp);
+
+          // Cari aktivitas berdasarkan NRP
+          let aktivitas = dataAktivitas[nrp];
+          if (aktivitas) {
+            localStorage.setItem("aktivitasPekerja", aktivitas);
+            // alert(`Aktivitas Anda: ${aktivitas}`);
+          } else {
+            localStorage.setItem(
+              "aktivitasPekerja",
+              "Aktivitas tidak ditemukan"
+            );
+            // alert("Aktivitas tidak ditemukan untuk NRP Anda.");
+          }
+
+          // Arahkan ke dashboard
+          window.location.href = "input.html";
+        });
+    </script>
+  </body>
+</html>

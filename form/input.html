@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DASHBOARD KARYAWAN</title>
+    <link rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <header>
+      <h1>Dashboard Pekerja</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Beranda</a></li>
+          <li>
+            <a href="index.html" target="_blank">Produktifitas</a>
+          </li>
+          <li><a href="index.html">Keluar</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="welcome">
+      <h2>Selamat Datang, <span id="namaPekerja"></span></h2>
+      <p>Senang melihat Anda kembali!</p>
+    </section>
+    <div class="container">
+      <div class="content">
+        <form name="#">
+          <div id="form_alerts"></div>
+          <div class="user-details">
+            <div class="form-group">
+              <label for="date">Tanggal</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+            <div class="input-box">
+              <label for="AKTIVITAS" class="form-label">Aktivitas</label>
+              <select
+                type="text"
+                id="AKTIVITAS"
+                name="AKTIVITAS"
+                class="form-control"
+                placeholder="Pilih Aktifitas"
+                required
+              >
+                <option>--Pilih Aktifitas--</option>
+                <option>Inventory</option>
+                <option>Temlock</option>
+                <option>Print Picking Slip</option>
+                <option>Repacking Part</option>
+                <option>Procurement</option>
+                <option>Supply Operation</option>
+                <option>BO Monitoring</option>
+                <option>Claim Customer to Depo</option>
+                <option>Claim Depo to TAM</option>
+                <option>Unloading</option>
+                <option>Checking Receiving</option>
+                <option>Binning</option>
+                <option>Cleansing Receiving</option>
+                <option>Reserve</option>
+                <option>Replenishment</option>
+                <option>Relocation</option>
+                <option>Trouble Shooter</option>
+                <option>Maintain Location</option>
+                <option>Maintain F</option>
+                <option>Picking Issuing</option>
+                <option>Checking Issuing</option>
+                <option>Packaging Preparation</option>
+                <option>Packing</option>
+                <option>Picking - Checking - Packing (PCP)</option>
+                <option>Cleansing Issuing</option>
+                <option>Billing</option>
+                <option>Loading</option>
+                <option>Shipping Monitoring</option>
+                <option>Monitoring Shipping Document</option>
+                <option>Quality</option>
+                <option>HSE</option>
+                <option>GA</option>
+                <option>Administrasi</option>
+                <option>HR</option>
+                <option>Daily Report</option>
+                <option>Weekly Report</option>
+                <option>Monthly Report</option>
+                <option>Quarter Report</option>
+                <option>Mid Year Report</option>
+                <option>Yearly Report</option>
+                <option>STO / Sampling</option>
+                <option>Print Picking Slip</option>
+                <option>GA (Kuras Toren, Cek Bangunan dll)</option>
+                <option>HR (Data Absensi, dll)</option>
+                <option>Brifing</option>
+                <option>Meeting</option>
+                <option>PICA / Problem Solving</option>
+                <option>SS</option>
+                <option>QCC</option>
+                <option>Kaizen</option>
+                <option>CSR</option>
+                <option>Legal Activity</option>
+                <option>Enggagement / Humas / Kunjungan</option>
+                <option>Kegiatan External Perusahaan</option>
+                <option>Izin</option>
+                <option>Cuti</option>
+                <option>Sakit</option>
+              </select>
+            </div>
+            <div class="input-box">
+              <label for="AKTIVITAS" class="form-label">Area</label>
+              <select
+                type="text"
+                id="bagian"
+                name="bagian"
+                class="form-control"
+                placeholder="Pilih Area"
+                required
+              >
+                <option>--Pilih Area--</option>
+                <option>Inventory</option>
+                <option>Receiving</option>
+                <option>Issuing</option>
+                <option>Shipping</option>
+                <option>Storage</option>
+                <option>Claim</option>
+                <option>Kaizen</option>
+                <option>HSE GA</option>
+                <option>ADM HR</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task">Tugas yang Diselesaikan</label>
+              <textarea id="task" name="task" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="jamMulai">Jam mulai</label>
+              <input type="time" id="jamMulai" name="jamMulai" required />
+            </div>
+            <div class="form-group">
+              <label for="jamSelesai">Jam selesai</label>
+              <input type="time" id="jamSelesai" name="jamSelesai" required />
+            </div>
+            <div class="form-group">
+              <label for="hours">Lama Bekerja (jam)</label>
+              <input type="text" id="hours" name="hours" readonly />
+            </div>
+          </div>
+          <div class="button mb-5" style="width: 100%">
+            <button
+              type="submit"
+              onclick="UploadFile();"
+              class="btn btn-primary btn-kirim"
+            >
+              Kirim
+            </button>
+            <button
+              class="btn btn-primary btn-loading d-none"
+              type="button"
+              disabled
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycby3xkcJjwoi5dr3veIAKZf3J98kJcUpvyv7u6jXM-jL74G95qdXzkjmriO8qxLsHwQKSA/exec";
+      const form = document.forms["#"];
+
+      const btnKirim = document.querySelector(".btn-kirim");
+      const btnLoading = document.querySelector(".btn-loading");
+      const myAlert = document.querySelector(".my-alert");
+
+      var namaPekerja = localStorage.getItem("namaPekerja");
+      var nrpPekerja = localStorage.getItem("nrpPekerja");
+
+      // Tampilkan nama pekerja di dashboard
+      document.getElementById("namaPekerja").textContent = namaPekerja;
+
+      function calculateWorkingHours() {
+        const jamMulai = document.getElementById("jamMulai").value;
+        const jamSelesai = document.getElementById("jamSelesai").value;
+
+        if (jamMulai && jamSelesai) {
+          const mulai = new Date(`1970-01-01T${jamMulai}:00`);
+          const selesai = new Date(`1970-01-01T${jamSelesai}:00`);
+
+          let selisih = selesai - mulai;
+
+          if (selesai < mulai) {
+            selesai.setDate(selesai.getDate() + 1);
+            selisih = selesai - mulai;
+          }
+
+          const totalMinutes = selisih / (1000 * 60);
+          const hours = Math.floor(totalMinutes / 60);
+          const minutes = Math.round(totalMinutes % 60);
+          document.getElementById("hours").value = `${hours}.${minutes
+            .toString()
+            .padStart(2, "0")}`;
+        }
+      }
+
+      document
+        .getElementById("jamMulai")
+        .addEventListener("change", calculateWorkingHours);
+      document
+        .getElementById("jamSelesai")
+        .addEventListener("change", calculateWorkingHours);
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Ambil data dari localStorage
+        const namaPekerja = localStorage.getItem("namaPekerja");
+        const nrpPekerja = localStorage.getItem("nrpPekerja");
+
+        // Buat FormData dan tambahkan data dari form
+        const formData = new FormData(form);
+        // Tambahkan data dari localStorage ke FormData
+        formData.append("namaPekerja", namaPekerja);
+        formData.append("nrpPekerja", nrpPekerja);
+
+        // Cek aktivitas dan tambahkan bagian yang sesuai
+        const aktivitas = formData.get("AKTIVITAS");
+        const bagianKoorMapping = {
+          receiving: "Ilham Putra Pratama",
+          issuing: "Roni Suharyanto",
+          shipping: "Johan Safarisa Sidik",
+          "HSE dan GA": "Kiki Purnama",
+          administrasi: "Vidya Nirmala Putri",
+          quality: "Sony Purnomo",
+          storage: "Mas Gilang Ginanjar",
+          inventory: "Reyza Abdurrozaq",
+        };
+
+        // const receivingActivities = [
+        //   "Binning",
+        //   "Checking Receiving",
+        //   "Cleansing Receiving",
+        //   "Unloading",
+        //   "Claim Depo to TAM",
+        // ];
+        // const inventoryActivities = [
+        //   "Inventory",
+        //   "Procurement",
+        //   "Supply Operation",
+        //   "BO Monitoring",
+        //   "Claim Customer to Depo",
+        // ];
+        // const storageActivities = [
+        //   "Reserve",
+        //   "Replenishment",
+        //   "Relocation",
+        //   "Trouble Shooter",
+        //   "Maintain Location",
+        //   "Maintain F",
+        // ];
+        // const issuingActivities = [
+        //   "Picking Issuing",
+        //   "Checking Issuing",
+        //   "Packaging Preparation",
+        //   "Packing",
+        //   "Picking - Checking - Packing (PCP)",
+        //   "Cleansing Issuing",
+        // ];
+        // const billingActivities = [
+        //   "Billing",
+        //   "Loading",
+        //   "Shipping Monitoring",
+        //   "Monitoring Shipping Document",
+        // ];
+        // const qualityActivities = ["Quality"];
+        // const hseAndGaActivities = ["HSE", "GA"];
+        // const adminActivities = ["Administrasi", "HR"];
+
+        // let bagian = "";
+        // if (receivingActivities.includes(aktivitas)) {
+        //   bagian = "receiving";
+        // } else if (inventoryActivities.includes(aktivitas)) {
+        //   bagian = "inventory";
+        // } else if (storageActivities.includes(aktivitas)) {
+        //   bagian = "storage";
+        // } else if (issuingActivities.includes(aktivitas)) {
+        //   bagian = "issuing";
+        // } else if (billingActivities.includes(aktivitas)) {
+        //   bagian = "Shipping";
+        // } else if (qualityActivities.includes(aktivitas)) {
+        //   bagian = "quality";
+        // } else if (hseAndGaActivities.includes(aktivitas)) {
+        //   bagian = "HSE dan GA";
+        // } else if (adminActivities.includes(aktivitas)) {
+        //   bagian = "administrasi";
+        // }
+
+        formData.append("bagian", bagian);
+        formData.append("koordinator", bagianKoorMapping[bagian]);
+
+        // ketika tombol diklik
+        // tampilkan tombol loading hilangkan tombol kirim
+        btnLoading.classList.toggle("d-none");
+        btnKirim.classList.toggle("d-none");
+
+        fetch(scriptURL, { method: "POST", body: formData })
+          .then((response) => {
+            btnLoading.classList.toggle("d-none");
+            btnKirim.classList.toggle("d-none");
+            myAlert.classList.toggle("d-none");
+            $("#form_alerts").html(
+              "<div class='alert alert-danger'>Data gagal terkirim!.</div>"
+            );
+          })
+          .catch((error) => {
+            btnLoading.classList.toggle("d-none");
+            btnKirim.classList.toggle("d-none");
+
+            $("#form_alerts").html(
+              "<div class='alert alert-success'>Data berhasil dikirim.</div>"
+            );
+            alert("Data berhasil terkirim");
+          });
+
+        form.reset();
+        btnLoading.classList.toggle("d-none");
+        btnKirim.classList.toggle("d-none");
+      });
+    </script>
+  </body>
+</html>
